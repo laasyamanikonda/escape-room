@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synergex OS - Overtime Workstation</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 7h11l2 3h15v18H2z' fill='%23d8b43c' stroke='%23000'/%3E%3Cpath d='M2 12h28v16H2z' fill='%23f7e27a' stroke='%23000'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Desktop: icons + windows -->
+  <div id="desktop">
+    <div id="icons"></div>
+    <div id="windows"></div>
+  </div>
+
+  <!-- Taskbar -->
+  <div id="taskbar">
+    <button id="start-btn" class="btn start" aria-haspopup="true">
+      <span class="start-logo" aria-hidden="true"></span><b>Start</b>
+    </button>
+    <div class="task-sep"></div>
+    <div id="task-buttons"></div>
+    <div id="tray" class="sunken" title="Total time (includes hint penalties)">
+      <span id="tray-time">00:00</span>
+      <span id="tray-pen" class="tray-pen"></span>
+    </div>
+  </div>
+  <div id="start-menu" hidden></div>
+
+  <div id="toasts" aria-live="polite"></div>
+  <div id="modal-root"></div>
+
+  <!-- Intro gate: shown until the room has been cleared -->
+  <div id="gate" hidden>
+    <div class="win gate-win">
+      <div class="titlebar"><span class="ttitle" id="gate-title"></span></div>
+      <div class="win-body">
+        <div id="gate-step1">
+          <div class="paper memo" id="gate-memo"></div>
+          <div class="btn-row"><button class="btn" id="gate-continue"></button></div>
+        </div>
+        <div id="gate-step2" hidden>
+          <h3 id="gate-relocate-title"></h3>
+          <div id="gate-relocate"></div>
+          <div class="progress sunken" aria-hidden="true"><div id="gate-bar"></div></div>
+          <p class="gate-count" id="gate-count"></p>
+          <div class="btn-row"><button class="btn" id="gate-confirm" disabled></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
