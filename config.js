@@ -126,9 +126,9 @@ window.ESCAPE_CONFIG = {
       footer: ["Tip: $0.00 (interns work for exposure)", "Thank you! Come back never."],
       /* Exactly ONE of these should say "add creamer". */
       orders: [
-        { name: "Dana",   drink: "Pumpkin Spice Latte",  addIn: "add sugar" },
+        { name: "Dana",   drink: "Gingerbread Latte",  addIn: "add sugar" },
         { name: "Marcus", drink: "Lavender Honey Latte", addIn: "add stevia" },
-        { name: "Priya",  drink: "Gingerbread Latte",    addIn: "add creamer" },
+        { name: "Priya",  drink: "Pumpkin Spice Latte",    addIn: "add creamer" },
         { name: "Theo",   drink: "Vanilla Bean Latte",   addIn: "add 2 sugars" },
         { name: "Jun",    drink: "Hazelnut Latte",       addIn: "add honey" },
         { name: "Alma",   drink: "Caramel Macchiato",    addIn: "add stevia" },
