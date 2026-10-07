@@ -120,9 +120,9 @@ window.ESCAPE_CONFIG = {
 
     receipt: {
       shop: "UNPAID EXPERIENCE CAFE",
-      sub: "Next up, your favorite activity: making coffee. Everyone's drinks sure do SMELL GREAT! ",
+      sub: "Next up, your favorite activity: making coffee. Everyone's drinks sure do SMELL GREAT!! Too bad you won't be able to drink yours until it's gross & watered down.",
       orderNo: "Order #4471",
-      timeLine: "Make each cup like your (nonexistent) paycheck depends on it!! And, remember: you'll never get this all done in time if you don't work together.",
+      timeLine: "Make each cup o' joe like your (nonexistent) paycheck depends on it!! And, remember: you'll never get this all done in time if you don't work together.",
       footer: ["Tip: $0.00 (interns work for "experience")", "Thank you! Come back never."],
        
       /* Exactly ONE of these say "add creamer". */
@@ -206,7 +206,6 @@ window.ESCAPE_CONFIG = {
     orderClue: "Logged 4:55 PM - End-of-day ritual",
 
     hints: [
-      "The stamp is only half of the ritual. Where is it meant to be worn?",
       "Team bonding is essential. Hands are involved, and more than one pair.",
       "Each person has a letter on their finger. Put the hands together and read across."
     ]
