@@ -7,7 +7,7 @@
 
 window.ESCAPE_CONFIG = {
 
-  companyName: "Synergex Solutions, Inc.",
+  companyName: "Wayfair Insurance Company",
 
   /* Each hint adds this many seconds to the stopwatch (60 = 1 minute). */
   hintPenaltySeconds: 60,
@@ -79,7 +79,7 @@ window.ESCAPE_CONFIG = {
            <b>RE:</b> Q3 Transparency Report (DRAFT)</p>
         <p>Per Legal, the Q3 report has been split into three
            &ldquo;transparent&rdquo; sections and filed in three separate places
-           (do <u>not</u> ask which). On their own, each section tells you nothing.</p>
+           (do <u>not</u> ask which). We LOVE honesty & transparency here at Wayfair (except if one of your bosses is bad at their jobs. Keep that to yourself.) On their own, each section tells you nothing.</p>
         <p>Section 1 of 3: <span class="redact" style="width:150px"></span>
            <span class="redact" style="width:60px"></span></p>
         <p>Section 2 of 3: <span class="redact" style="width:90px"></span>
@@ -119,20 +119,22 @@ window.ESCAPE_CONFIG = {
     tab: "BREAK ROOM ORDERS",
 
     receipt: {
-      shop: "PERK UP CAFE",
-      sub: "Where Burnout Meets Brew",
+      shop: "UNPAID EXPERIENCE CAFE",
+      sub: "Next up, your favorite activity: making coffee. Everyone's drinks sure do SMELL GREAT! ",
       orderNo: "Order #4471",
-      timeLine: "Wed 9:30 AM  *  TO GO x10",
-      footer: ["Tip: $0.00 (interns work for exposure)", "Thank you! Come back never."],
-      /* Exactly ONE of these should say "add creamer". */
+      timeLine: "Make each cup like your (nonexistent) paycheck depends on it!! And, remember: you'll never get this all done in time if you don't work together.",
+      footer: ["Tip: $0.00 (interns work for "experience")", "Thank you! Come back never."],
+       
+      /* Exactly ONE of these say "add creamer". */
+       
       orders: [
-        { name: "Dana",   drink: "Gingerbread Latte",  addIn: "add sugar" },
-        { name: "Marcus", drink: "Lavender Honey Latte", addIn: "add stevia" },
-        { name: "Priya",  drink: "Pumpkin Spice Latte",    addIn: "add creamer" },
-        { name: "Theo",   drink: "Vanilla Bean Latte",   addIn: "add 2 sugars" },
-        { name: "Jun",    drink: "Hazelnut Latte",       addIn: "add honey" },
-        { name: "Alma",   drink: "Caramel Macchiato",    addIn: "add stevia" },
-        { name: "Wes",    drink: "Peppermint Mocha",     addIn: "add agave" },
+        { name: "Ollie",   drink: "Gingerbread Latte",  addIn: "add sugar" },
+        { name: "Mei", drink: "Lavender Honey Latte", addIn: "add stevia" },
+        { name: "Laasya",  drink: "Pumpkin Spice Latte",    addIn: "add creamer" },
+        { name: "Louis",   drink: "Vanilla Bean Latte",   addIn: "add 2 sugars" },
+        { name: "Brighton",    drink: "Hazelnut Latte",       addIn: "add honey" },
+        { name: "Josh",   drink: "Caramel Macchiato",    addIn: "add stevia" },
+        { name: "Dom",    drink: "Peppermint Mocha",     addIn: "add agave" },
         { name: "Rosa",   drink: "Maple Pecan Latte",    addIn: "add sugar" },
         { name: "Cal",    drink: "Cinnamon Dolce Latte", addIn: "add brown sugar" },
         { name: "Bea",    drink: "Toasted Coconut Latte", addIn: "add stevia" }
@@ -146,16 +148,16 @@ window.ESCAPE_CONFIG = {
     orderClue: "Logged 9:30 AM - Morning break",
 
     hints: [
-      "Nearly every order ends the same way. Look for the one that doesn't.",
+      "Nearly every order has a similar customization. Look for the one that doesn't.",
       "Don't smell every cup alone. Divide the cups, then check them against the receipt."
     ],
 
     /* The separate "I used the creamer on the wrong cup" button. Costs one hint.
        Replace the text with wherever you actually hide the spare creamer. */
     specialHint: {
-      label: "Wrong cup? Request backup creamer",
-      confirm: "Requesting backup creamer counts as a hint and adds time to your clock.",
-      text: "BACKUP CREAMER: [REPLACE ME - e.g. taped under the second drawer of the file cabinet]."
+      label: "Added something to the wrong cup? Need more supplies?",
+      confirm: "Requesting backup stevia, sugar, or creamer counts as a hint and adds time to your clock.",
+      text: "BACKUP CREAMER: [REPLACE ME - [NEED TO CHANGE THIS TO ADD WHERE THE BACKUP CREAMER IS]."
     }
   },
 
