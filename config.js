@@ -13,7 +13,7 @@ window.ESCAPE_CONFIG = {
   hintPenaltySeconds: 60,
 
   /* How long the "please relocate your teammates" countdown runs at the start. */
-  gateCountdownSeconds: 30,
+  gateCountdownSeconds: 15,
 
   /* --------------------------------------------------------------------------
      THE LETTERS  (placeholder word: D-A-Y-S)
