@@ -6,7 +6,7 @@
   'use strict';
 
   const C = window.ESCAPE_CONFIG;
-  const KEY = 'synergexEscapeRoom.v1';
+  const KEY = 'wayfairEscapeRoom.v1';
   const TASKS = ['plexiglass', 'coffee', 'stamps'];
 
   const $ = (s, r = document) => r.querySelector(s);
