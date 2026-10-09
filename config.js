@@ -189,10 +189,10 @@ window.ESCAPE_CONFIG = {
         <h2>Welcome to the Wayfair Insurance Company!</h2>
         <p>At Wayfair, we believe in <i>tradition</i>.</p>
         <p>Our company has a ritual: every employee receives a special stamped tattoo.
-           You&rsquo;ll find your stamp inside your desk, and the pad on top of it.</p>
+           You&rsquo;ll find your stamp, and the pad on top of it.</p>
         <p>When deciphering the code, remember that <b>team bonding</b> is essential.</p>
-        <p class="small">Wayfair Solutions is an equal-opportunity overworker.
-           Side effects of the ritual may include ink, camaraderie, and mild confusion.</p>
+        <p class="small">By way of this ritual, we want to LEAVE A MARK on you! 
+           </p>
       </div>`,
 
     lockedFileName: "ritual_results.txt",
