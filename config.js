@@ -128,16 +128,12 @@ window.ESCAPE_CONFIG = {
       /* Exactly ONE of these say "add creamer". */
        
       orders: [
-        { name: "Ollie",   drink: "Gingerbread Latte",  addIn: "add sugar" },
-        { name: "Mei", drink: "Lavender Honey Latte", addIn: "add stevia" },
-        { name: "Laasya",  drink: "Pumpkin Spice Latte",    addIn: "add creamer" },
-        { name: "Louis",   drink: "Vanilla Bean Latte",   addIn: "add 2 sugars" },
-        { name: "Brighton",    drink: "Hazelnut Latte",       addIn: "add honey" },
-        { name: "Josh",   drink: "Caramel Macchiato",    addIn: "add stevia" },
+        { name: "Ollie",   drink: "Vanilla Latte",  addIn: "add sugar" },
+        { name: "Mei", drink: "Black Coffee", addIn: "add stevia" },
+        { name: "Laasya",  drink: "Cinammon Latte",    addIn: "add creamer" },
+        { name: "Louis",   drink: "Raspberry Latte",   addIn: "add 2 sugars" },
+        { name: "Brighton",    drink: "Black Coffee",       addIn: "add honey" },
         { name: "Dom",    drink: "Peppermint Mocha",     addIn: "add agave" },
-        { name: "Rosa",   drink: "Maple Pecan Latte",    addIn: "add sugar" },
-        { name: "Cal",    drink: "Cinnamon Dolce Latte", addIn: "add brown sugar" },
-        { name: "Bea",    drink: "Toasted Coconut Latte", addIn: "add stevia" }
       ]
     },
 
