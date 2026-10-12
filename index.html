@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Synergex OS - Overtime Workstation</title>
+  <title>Overtime Workstation</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 7h11l2 3h15v18H2z' fill='%23d8b43c' stroke='%23000'/%3E%3Cpath d='M2 12h28v16H2z' fill='%23f7e27a' stroke='%23000'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -23,6 +23,7 @@
     <div class="task-sep"></div>
     <div id="task-buttons"></div>
     <div id="tray" class="sunken" title="Total time (includes hint penalties)">
+      <span id="tray-intern" class="tray-intern"></span>
       <span id="tray-time">00:00</span>
       <span id="tray-pen" class="tray-pen"></span>
     </div>
@@ -40,6 +41,14 @@
         <div id="gate-step1">
           <div class="paper memo" id="gate-memo"></div>
           <div class="btn-row"><button class="btn" id="gate-continue"></button></div>
+        </div>
+        <div id="gate-pick" hidden>
+          <h3 id="gate-pick-title"></h3>
+          <div id="gate-pick-text"></div>
+          <div class="pick-row">
+            <button class="btn pick" id="pick-1" type="button"></button>
+            <button class="btn pick" id="pick-2" type="button"></button>
+          </div>
         </div>
         <div id="gate-step2" hidden>
           <h3 id="gate-relocate-title"></h3>

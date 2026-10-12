@@ -6,8 +6,8 @@
   'use strict';
 
   const C = window.ESCAPE_CONFIG;
-  const KEY = 'wayfairEscapeRoom.v1';
-  const TASKS = ['plexiglass', 'coffee', 'stamps'];
+  const KEY = 'escapeRoomWorkstation.v2';
+  const TASKS = ['posters', 'coffee', 'stamps'];
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
@@ -21,14 +21,15 @@
   /* ------------------------------------------------------------------ state */
   const defaults = () => ({
     gatePassed: false,
+    intern: null,            // 1 or 2: which laptop this is
     startedAt: null,
     endedAt: null,
     penaltySec: 0,
-    penaltyBy: { plexiglass: 0, coffee: 0, stamps: 0, final: 0 },
-    solved: { plexiglass: false, coffee: false, stamps: false, final: false },
-    hints: { plexiglass: 0, coffee: 0, stamps: 0, final: 0 },
+    penaltyBy: { posters: 0, coffee: 0, stamps: 0, final: 0 },
+    solved: { posters: false, coffee: false, stamps: false, final: false },
+    hints: { posters: 0, coffee: 0, stamps: 0, final: 0 },
     special: { coffee: false },
-    notes: { plexiglass: '', coffee: '', stamps: '', bonus: '', free: '' }
+    notes: { posters: '', coffee: '', stamps: '', bonus: '', free: '' }
   });
 
   function merge(base, extra) {
@@ -68,6 +69,7 @@
     return (end - S.startedAt) / 1000 + S.penaltySec;
   };
   function tick() {
+    $('#tray-intern').textContent = S.intern ? `Intern ${S.intern}` : '';
     $('#tray-time').textContent = fmt(elapsed());
     $('#tray-pen').textContent = S.penaltySec ? `(+${fmt(S.penaltySec)} hints)` : '';
   }
@@ -86,7 +88,7 @@
   const APPS = {
     readme:      { title: () => C.readme.windowTitle, icon: 'txt', label: 'READ_ME_FIRST.txt', w: 520, render: renderReadme },
     notes:       { title: () => C.notes.windowTitle, icon: 'txt', label: 'My_Notes.txt', w: 480, render: renderNotes },
-    plexiglass:  { title: () => C.plexiglass.windowTitle, icon: 'folder', label: () => C.plexiglass.folderName, w: 640, render: (b) => renderPuzzle('plexiglass', b, () => C.plexiglass.html) },
+    posters:     { title: () => C.posters.windowTitle, icon: 'folder', label: () => C.posters.folderName, w: 640, render: (b) => renderPuzzle('posters', b, postersHTML) },
     coffee:      { title: () => C.coffee.windowTitle, icon: 'folder', label: () => C.coffee.folderName, w: 640, render: (b) => renderPuzzle('coffee', b, receiptHTML) },
     stamps:      { title: () => C.stamps.windowTitle, icon: 'folder', label: () => C.stamps.folderName, w: 640, render: (b) => renderPuzzle('stamps', b, stampsHTML) },
     hr:          { title: () => C.bonus.windowTitle, icon: 'mail', label: () => C.bonus.iconLabel, w: 460, render: renderHR },
@@ -95,27 +97,23 @@
   };
   const label = (a) => (typeof a.label === 'function' ? a.label() : a.label);
 
-  const allTasksDone = () => TASKS.every((k) => S.solved[k]);
+  /* The two laptops don't sync, so nothing is gated on the other laptop's
+     progress: HR_Message and Clock_Out are always on the desktop. */
   function desktopApps() {
-    const list = [...TASKS, 'notes', 'readme'];
-    if (allTasksDone()) list.push('hr', 'clockout');
-    list.push('trash');
-    return list;
+    return [...TASKS, 'notes', 'readme', 'hr', 'clockout', 'trash'];
   }
 
-  function renderIcons(newIds = []) {
+  function renderIcons() {
     const box = $('#icons');
     box.innerHTML = '';
     for (const id of desktopApps()) {
       const a = APPS[id];
       const b = el(`<button class="icon" data-id="${id}" type="button">${icon(a.icon, 32)}<span class="label">${label(a)}</span></button>`);
       if (S.solved[id === 'clockout' ? 'final' : id]) b.classList.add('done');
-      if (newIds.includes(id)) b.classList.add('newbie');
       const coarse = window.matchMedia('(pointer: coarse)').matches;
       b.addEventListener('click', (e) => {
         $$('.icon').forEach((i) => i.classList.remove('sel'));
         b.classList.add('sel');
-        b.classList.remove('newbie');
         if (coarse || e.detail === 0) openApp(id);
       });
       b.addEventListener('dblclick', () => openApp(id));
@@ -300,7 +298,7 @@
     body.innerHTML = `<div class="paper">${C.bonus.html}</div>`;
   }
   function renderNotes(body) {
-    const rows = ['plexiglass', 'coffee', 'stamps', 'bonus'].map((k) => `
+    const rows = ['posters', 'coffee', 'stamps', 'bonus'].map((k) => `
       <tr>
         <td><label for="n-${k}">${C.notes.labels[k]}</label></td>
         <td><input id="n-${k}" class="field letter" data-note="${k}" maxlength="1" autocomplete="off" spellcheck="false"></td>
@@ -320,30 +318,44 @@
   }
 
   /* -------------------------------------------------------- puzzle windows */
+  /* ---- Two-intern split helpers ----
+     A piece tagged `intern: 1` or `intern: 2` is only shown on that laptop;
+     a piece with no tag is shown on both. */
+  const mine = (item) => !item.intern || item.intern === S.intern;
+  const partsHTML = (parts) => parts.filter(mine).map((p) => p.html).join('');
+  const pageTag = () => (C.pageLabel ? `<p class="small pagetag">${C.pageLabel.replace('{n}', S.intern)}</p>` : '');
+
+  function postersHTML() {
+    return `<div class="paper">${partsHTML(C.posters.parts)}${pageTag()}</div>`;
+  }
+
   function receiptHTML() {
     const r = C.coffee.receipt;
-    const lines = r.orders.map((o) => `<p class="line"><b>${o.name.toUpperCase()}</b><span>${o.drink}</span><span>${o.addIn}</span></p>`).join('');
+    const lines = r.orders.filter(mine).map((o) => `<p class="line"><b>${o.name.toUpperCase()}</b><span>${o.drink}</span><span>${o.addIn}</span></p>`).join('');
+    const sub = mine({ intern: r.subIntern }) ? `<div>${r.sub}</div>` : '';
+    const timeLine = mine({ intern: r.timeLineIntern }) ? `<br>${r.timeLine}` : '';
     return `
       <div class="receipt">
-        <div class="center"><div class="shop">${r.shop}</div><div>${r.sub}</div></div>
+        <div class="center"><div class="shop">${r.shop}</div>${sub}</div>
         <hr>
-        <div class="center">${r.orderNo}<br>${r.timeLine}</div>
+        <div class="center">${r.orderNo}${timeLine}</div>
         <hr>
         ${lines}
         <hr>
         <div class="center">${r.footer.join('<br>')}</div>
+        ${pageTag().replace('class="small pagetag"', 'class="small pagetag center"')}
       </div>`;
   }
 
   function stampsHTML() {
     const s = C.stamps;
     /* VIDEO SWAP: if config.js has stamps.videoSrc set (e.g. "assets/ritual.mp4")
-       the video is shown here instead of the pamphlet. See the instructions in
-       config.js. */
-    const content = s.videoSrc
-      ? `<div class="video-wrap"><video controls preload="metadata" ${s.videoPoster ? `poster="${s.videoPoster}"` : ''} src="${s.videoSrc}"></video></div>`
-      : s.pamphletHtml;
-    return content;
+       the video is shown here instead of the pamphlet (both interns see it).
+       See the instructions in config.js. */
+    if (s.videoSrc) {
+      return `<div class="video-wrap"><video controls preload="metadata" ${s.videoPoster ? `poster="${s.videoPoster}"` : ''} src="${s.videoSrc}"></video></div>`;
+    }
+    return `<div class="paper pamphlet">${partsHTML(s.pamphletParts)}${pageTag()}</div>`;
   }
 
   function cfgFor(key) { return key === 'final' ? C.final : C[key]; }
@@ -382,7 +394,7 @@
       });
     } else {
       $('input', form).addEventListener('input', (e) => {
-        if (key !== 'stamps') e.target.value = e.target.value.toUpperCase().slice(0, 1);
+        if (key === 'coffee') e.target.value = e.target.value.toUpperCase().slice(0, 1);
       });
     }
 
@@ -405,6 +417,15 @@
           <div class="code-boxes">${boxes}</div>
           <div class="msg" aria-live="polite" style="text-align:center"></div>
           <div class="btn-row" style="flex:1 1 100%"><button class="btn" type="submit">${cfg.submitText}</button></div>
+        </form>`;
+    }
+    if (key === 'posters') {
+      return `
+        <form class="answer" autocomplete="off">
+          <label for="ans-posters">${cfg.answerLabel}</label>
+          <input id="ans-posters" class="field pw" autocomplete="off" autocapitalize="characters" spellcheck="false">
+          <button class="btn" type="submit">${cfg.submitText}</button>
+          <div class="msg" aria-live="polite"></div>
         </form>`;
     }
     if (key === 'stamps') {
@@ -448,7 +469,7 @@
   function solvedHTML(key) {
     const cfg = cfgFor(key);
     if (key === 'final') {
-      const by = [['Q3 Transparency', 'plexiglass'], ['Break Room Orders', 'coffee'], ['Onboarding Ritual', 'stamps'], ['Final Code', 'final']]
+      const by = [['Wall of Inspiration', 'posters'], ['Break Room Orders', 'coffee'], ['Onboarding Ritual', 'stamps'], ['Final Code', 'final']]
         .map(([n, k]) => `${n}: ${S.hints[k]} hint${S.hints[k] === 1 ? '' : 's'}${S.special[k] ? ' + backup supply' : ''}`);
       return `
         <div class="done">
@@ -493,6 +514,8 @@
       ok = norm($$('.code-boxes input', form).map((i) => i.value).join('')) === norm(finalCode());
     } else if (key === 'stamps') {
       ok = norm($('input', form).value) === norm(C.stamps.password);
+    } else if (key === 'posters') {
+      ok = norm($('input', form).value) === norm(C.posters.answer);
     } else {
       ok = norm($('input', form).value) === norm(C.letters[key]);
     }
@@ -510,14 +533,8 @@
       toast('Clocked out', `Final time ${fmt(elapsed())}`);
     } else {
       toast('Task logged', 'Nice work. Write your letter down in My_Notes.txt.');
-      if (allTasksDone()) unlockEnding();
-      else renderIcons();
+      renderIcons();
     }
-  }
-
-  function unlockEnding() {
-    renderIcons(['hr', 'clockout']);
-    setTimeout(() => toast(C.bonus.toast, 'Check your desktop. Also: Clock_Out.exe is now available.'), 900);
   }
 
   function useHint(key, special) {
@@ -538,21 +555,45 @@
   }
 
   /* ----------------------------------------------------------------- gate */
-  function initGate() {
+  /* Steps: 'memo' -> 'pick' (Intern 1 / Intern 2) -> 'wait' (countdown + confirm).
+     If the game was already started but no intern is chosen (shouldn't normally
+     happen), we open straight at 'pick' and skip the countdown. */
+  function initGate(startStep) {
     const gate = $('#gate');
     const I = C.intro;
+    const show = (step) => {
+      $('#gate-step1').hidden = step !== 'memo';
+      $('#gate-pick').hidden = step !== 'pick';
+      $('#gate-step2').hidden = step !== 'wait';
+    };
     $('#gate-title').textContent = I.windowTitle;
     $('#gate-memo').innerHTML = I.html;
     $('#gate-continue').textContent = I.continueButton;
+    $('#gate-pick-title').textContent = I.pickTitle;
+    $('#gate-pick-text').innerHTML = I.pickHtml;
+    $('#pick-1').textContent = I.pickButton1;
+    $('#pick-2').textContent = I.pickButton2;
     $('#gate-relocate-title').textContent = I.relocateTitle;
     $('#gate-relocate').innerHTML = I.relocateHtml;
     const confirmBtn = $('#gate-confirm');
     confirmBtn.textContent = I.confirmButton;
+    show(startStep);
     gate.hidden = false;
 
-    $('#gate-continue').addEventListener('click', () => {
-      $('#gate-step1').hidden = true;
-      $('#gate-step2').hidden = false;
+    $('#gate-continue').addEventListener('click', () => show('pick'));
+
+    [1, 2].forEach((n) => {
+      $(`#pick-${n}`).addEventListener('click', () => {
+        S.intern = n;
+        save();
+        tick();
+        if (S.gatePassed) { gate.hidden = true; startDesktop(false); return; }
+        show('wait');
+        startCountdown();
+      });
+    });
+
+    function startCountdown() {
       const total = Math.max(0, C.gateCountdownSeconds);
       const end = Date.now() + total * 1000;
       const count = $('#gate-count'), bar = $('#gate-bar');
@@ -569,7 +610,7 @@
           confirmBtn.focus();
         }
       }, 250);
-    });
+    }
 
     confirmBtn.addEventListener('click', () => {
       S.gatePassed = true;
@@ -586,21 +627,39 @@
     if (fresh) toast('Shift started', 'The clock is running. Good luck, intern.');
   }
 
-  /* ------------------------------------------------------------- game master */
+  /* ------------------------------------------------------------- game master
+     Ctrl+Alt+R : reset everything on this laptop (next team)
+     Ctrl+Alt+I : switch this laptop between Intern 1 and Intern 2, keeping progress
+     (e.code is used so these also work on a Mac, where Option changes e.key.) */
   document.addEventListener('keydown', async (e) => {
-    if (e.ctrlKey && e.altKey && (e.key === 'r' || e.key === 'R')) {
+    if (!(e.ctrlKey && e.altKey)) return;
+    if (e.code === 'KeyR') {
       e.preventDefault();
       const ok = await dialog({
         title: 'Reset game',
-        message: 'Reset the whole game for the next team? This clears all progress, hints and the stopwatch.',
+        message: 'Reset the whole game for the next team? This clears all progress, hints and the stopwatch on this laptop.',
         buttons: [{ label: 'Reset', value: true }, { label: 'Cancel', value: false, primary: true }]
       });
       if (ok) { try { localStorage.removeItem(KEY); } catch (err) { /* ignore */ } location.reload(); }
+    }
+    if (e.code === 'KeyI' && S.intern) {
+      e.preventDefault();
+      const other = S.intern === 1 ? 2 : 1;
+      const ok = await dialog({
+        title: 'Switch intern',
+        message: `Switch this laptop from Intern ${S.intern} to Intern ${other}? Progress and the stopwatch are kept.`,
+        buttons: [{ label: `Switch to Intern ${other}`, value: true }, { label: 'Cancel', value: false, primary: true }]
+      });
+      if (ok) {
+        S.intern = other;
+        save();
+        location.reload();
+      }
     }
   });
 
   /* ------------------------------------------------------------------ boot */
   setInterval(tick, 250);
-  if (S.gatePassed) startDesktop(false);
-  else { tick(); initGate(); }
+  if (S.gatePassed && S.intern) startDesktop(false);
+  else { tick(); initGate(S.gatePassed ? 'pick' : 'memo'); }
 })();

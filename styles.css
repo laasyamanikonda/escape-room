@@ -4,7 +4,7 @@
 
 :root {
   --face: #c0c0c0;
-  --teal: #d3d3d3;
+  --teal: #008080;
   --navy: #000080;
   --manila: #f1d58a;
   --manila-dark: #6b5420;
@@ -202,6 +202,13 @@ button, input, textarea { font: inherit; color: inherit; }
   white-space: nowrap;
 }
 #tray-time { font-weight: bold; }
+.tray-intern { font-size: 11px; color: #000080; font-weight: bold; }
+.tray-intern:empty { display: none; }
+
+.pick-row { display: flex; gap: 12px; margin-top: 14px; }
+.btn.pick { flex: 1; padding: 16px 10px; font-weight: bold; font-size: 15px; }
+.pagetag { text-align: right; margin: 10px 0 0 !important; }
+.pagetag.center { text-align: center; }
 .tray-pen { color: #8a1c1c; font-size: 11px; }
 
 /* ----- Start menu ------------------------------------------------------- */
@@ -216,7 +223,7 @@ button, input, textarea { font: inherit; color: inherit; }
   position: fixed;
 }
 #start-menu::before {
-  content: "SYNERGEX OS";
+  content: "WORKSTATION";
   position: absolute; left: 3px; top: 3px; bottom: 3px; width: 22px;
   background: linear-gradient(#000080, #1084d0);
   color: #dfe;
