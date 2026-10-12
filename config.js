@@ -242,7 +242,7 @@ window.ESCAPE_CONFIG = {
     html: `
       <p><b>FROM:</b> Human Resources<br>
          <b>SENT:</b> 11:48 PM (after hours)<br>
-         <b>RE:</b> Good job!</p>
+         <b>RE:</b> Almost done!</p>
       <p>Great job on the teamwork! We&rsquo;re so proud of all of you. </p>
       <p>As a reward, here is a free bonus question for the road:</p>
       <p><b>What letter comes when talking about plurals (like GROUPS of amazing INTERNS!) </b></p>
