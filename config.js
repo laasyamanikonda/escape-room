@@ -255,15 +255,13 @@ window.ESCAPE_CONFIG = {
     windowTitle: "CLOCK_OUT.exe",
     iconLabel: "Clock_Out.exe",
     introHtml: `
-      <p>Enter the 4-letter badge code to unlock the lockbox and receive your
-         employee badge.</p>
+      <p>Enter the 4-letter badge code to officially clock out.</p>
       <p class="small">Letters must be entered in the order your tasks were logged.</p>`,
     submitText: "Clock Out",
     wrongText: "Invalid code. HR has been notified.",
     successHtml: `
       <p><b>ACCESS GRANTED.</b></p>
-      <p>Your employee badge is waiting in the lockbox. Scan it at the door to clock
-         out. Enjoy your freedom.</p>`,
+      <p>YOU HAVE BEEN CLOCKED OUT!!!!!!!! Enjoy your freedom. For now...</p>`,
 
     hints: [
       "Each completed folder has a task log line with a time. The order matters.",
