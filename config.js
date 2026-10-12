@@ -152,6 +152,7 @@ window.ESCAPE_CONFIG = {
 
       /* Exactly ONE of these says "add creamer". */
       orders: [
+<<<<<<< HEAD
         { intern: 1, name: "Ollie",    drink: "Vanilla Latte",    addIn: "add sugar" },
         { intern: 2, name: "Mei",      drink: "Black Coffee",     addIn: "add stevia" },
         { intern: 1, name: "Laasya",   drink: "Cinammon Latte",   addIn: "add creamer" },
@@ -159,6 +160,14 @@ window.ESCAPE_CONFIG = {
         { intern: 1, name: "Brighton", drink: "Black Coffee",     addIn: "add 2 stevia" },
         { intern: 2, name: "Dom",      drink: "Peppermint Mocha", addIn: "No extra additions" }
         
+=======
+        { name: "Ollie",   drink: "Vanilla Latte",  addIn: "add sugar" },
+        { name: "Mei", drink: "Black Coffee", addIn: "add stevia" },
+        { name: "Laasya",  drink: "Cinammon Latte",    addIn: "add creamer" },
+        { name: "Louis",   drink: "Raspberry Latte",   addIn: "add 2 sugars" },
+        { name: "Brighton",    drink: "Black Coffee",       addIn: "add honey" },
+        { name: "Dom",    drink: "Peppermint Mocha",     addIn: "add agave" },
+>>>>>>> 5a60cd05c027606c101f318e58820ce5cdc2127e
       ]
     },
 
@@ -209,12 +218,21 @@ window.ESCAPE_CONFIG = {
       { intern: 1, html: `
         <h2>Welcome to the Wayfair Insurance Company!</h2>
         <p>At Wayfair, we believe in <i>tradition</i>.</p>
+<<<<<<< HEAD
         <p>Our company has a ritual: every employee is imprinted with our core values!
            You'll find the supplies you need in red & blue.'` },
       { intern: 2, html: `
         <p>When deciphering the code, remember that <b>team bonding</b> is essential. Everyone's <b>HANDS</b> share the work here at Wayfair, and we must stay <b>INTERLINKED</b> to be successful.  </p>
         <p class="small">By way of this ritual, we want to LEAVE A MARK on you!</p>` }
     ],
+=======
+        <p>Our company has a ritual: every employee receives a special stamped tattoo.
+           You&rsquo;ll find your stamp, and the pad on top of it.</p>
+        <p>When deciphering the code, remember that <b>team bonding</b> is essential.</p>
+        <p class="small">By way of this ritual, we want to LEAVE A MARK on you! 
+           </p>
+      </div>`,
+>>>>>>> 5a60cd05c027606c101f318e58820ce5cdc2127e
 
     lockedFileName: "ritual_results.txt",
     passwordLabel: "This file is password protected. Pa ssword:",
