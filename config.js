@@ -91,18 +91,17 @@ window.ESCAPE_CONFIG = {
       { intern: 1, html: `
         <p><b>MEMO</b> &mdash; FACILITIES<br>
            <b>RE:</b> The Wall of Motivation</p>
-           <p>Hope you're loving all of the inspiration you see around the room!!!! Studies show this boosts
-           productivity (don't ask for specifics). </p>
+           <p>Hope you're loving all of the inspiration you see around the room!!!! </p>
+           <p>Not all of the posters are decoration. Four of the posters were hung with great
+           care, and they are the only ones that matter.</i></p>
            <p>Top right: Your FAVORITE place on earth!!!</p>
-        <p>Bottom right: I <b>SMELL</b> a mouse!</p>
-        <p>Not all of the posters are decoration. Four of the posters were hung with great
-           care, and they are the only ones that matter. X marks the spot!</i>.</p>` },
+        <p>Bottom right: I <b>SMELL</b> a mouse!</p>` },
            
       { intern: 2, html: `
         <p><b>MEMO</b> &mdash; FACILITIES<br>
            <b>RE:</b> The Wall of Motivation (cont.)</p>
         <p>Employees who look at one poster at a time tend to miss the big
-           picture. Look around the room for something to CONNECT the dots!</p>
+           picture. <b>Look around the room for something to CONNECT the dots! X marks the spot!</b></p>
         <p>Top left: The ____ of your life is to work here!</p>
         <p>Bottom left: Get out a writing utensil for all that paperwork you'll be doing!</p>
         
@@ -210,7 +209,7 @@ window.ESCAPE_CONFIG = {
         <h2>Welcome to the Wayfair Insurance Company!</h2>
         <p>At Wayfair, we believe in <i>tradition</i>.</p>
         <p>Our company has a ritual: every employee is imprinted with our core values!
-           You'll find the supplies you need in red & blue.'` },
+           You'll find the supplies you need in red & blue.` },
       { intern: 2, html: `
         <p>When deciphering the code, remember that <b>team bonding</b> is essential. Everyone's <b>HANDS</b> share the work here at Wayfair, and we must stay <b>INTERLINKED</b> to be successful.  </p>
         <p class="small">By way of this ritual, we want to LEAVE A MARK on you!</p>` }
@@ -245,9 +244,9 @@ window.ESCAPE_CONFIG = {
          <b>RE:</b> Almost done!</p>
       <p>Great job on the teamwork! We&rsquo;re so proud of all of you. </p>
       <p>As a reward, here is a free bonus question for the road:</p>
-      <p><b>What letter comes when talking about plurals (like GROUPS of amazing INTERNS!) </b></p>
+      <p><b>What letter comes when talking about plurals (like GROUPS of amazing INTERNS!)?? </b></p>`
+  },
 
-  }
 
   /* ==========================================================================
      CLOCK OUT  (the final screen, always on the desktop)
@@ -255,7 +254,7 @@ window.ESCAPE_CONFIG = {
   final: {
     windowTitle: "CLOCK_OUT.exe",
     iconLabel: "Clock_Out.exe",
-    introHtml: 
+    introHtml: `
       <p>Enter the 4-letter badge code to unlock the lockbox and receive your
          employee badge.</p>
       <p class="small">Letters must be entered in the order your tasks were logged.</p>`,
