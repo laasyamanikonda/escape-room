@@ -173,11 +173,6 @@ window.ESCAPE_CONFIG = {
     ],
 
     /* The separate "I used the creamer on the wrong cup" button. Costs one hint. */
-    specialHint: {
-      label: "Added something to the wrong cup? Need more supplies?",
-      confirm: "Requesting backup stevia, sugar, or creamer counts as a hint.",
-      text: "BACKUP CREAMER: [REPLACE ME - [NEED TO CHANGE THIS TO ADD WHERE THE BACKUP CREAMER IS]."
-    }
   },
 
 
